@@ -42,6 +42,8 @@ void ASlashCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	Tags.Add(FName("SlashCharacter"));
+
 	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -78,7 +80,7 @@ void ASlashCharacter::Equip(const FInputActionValue& Value)
 	AWeapon* OverlappingWeapon = Cast<AWeapon>(OverlappingItem);
 	if (OverlappingWeapon)
 	{
-		OverlappingWeapon->Equip(GetMesh(), TEXT("RightHandSocket"));
+		OverlappingWeapon->Equip(GetMesh(), TEXT("RightHandSocket"), this, this);
 		CharacterState = ECharacterState::ECS_EquippedOneHandedWeapon;
 		OverlappingItem = nullptr;
 		EquippedWeapon = OverlappingWeapon;
